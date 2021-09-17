@@ -6,27 +6,52 @@ output: github_document
 ---
 
 
-hist(rnorm(10))
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+bridge = read_csv("hawaii bridge.csv")
+h_bridge = select(bridge, c('YEAR_BUILT_027','DECK_COND_058','STATE_CODE_001','STRUCTURE_NUMBER_008','DIRECTION_005E'))
+
+h_bridge = h_bridge %>% rename(year = YEAR_BUILT_027, condition_rate = DECK_COND_058, fipscode = STATE_CODE_001, 
+bridge_id = STRUCTURE_NUMBER_008, direction = DIRECTION_005E ) 
 ```
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+include link to github in html doc
+do str(data)
+imake a plot 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+library(rvest)
+library(tidyverse)
+
+##Import NBI DATA to excel-https://www.fhwa.dot.gov/bridge/nbi/importing.pdf; then save as csv 
+bridge = read_csv("hawaii bridge.csv")
+h_bridge = select(bridge, c('YEAR_BUILT_027','DECK_COND_058','STATE_CODE_001','STRUCTURE_NUMBER_008','DIRECTION_005E'))
+
+h_bridge = h_bridge %>% rename(year = YEAR_BUILT_027, condition_rate = DECK_COND_058, fipscode = STATE_CODE_001, 
+bridge_id = STRUCTURE_NUMBER_008, direction = DIRECTION_005E ) 
+
+
+
+str(h_bridge)
+
+
+plot = ggplot(data = h_bridge) + 
+  geom_point(mapping = aes(x = year, y = direction, color = condition_rate))
+  
+print(plot)
+  
+plot()
+
+print(plot)
+```{r echo=TRUE}
+ ggplot(data = h_bridge) + 
+  geom_point(mapping = aes(x = year, y = direction, color = condition_rate))
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

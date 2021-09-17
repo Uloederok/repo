@@ -27,4 +27,11 @@ print(plot)
 
 plot()
 
-print(plot) ![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+print(plot)
+
+``` r
+ ggplot(data = h_bridge) + 
+  geom_point(mapping = aes(x = year, y = direction, color = condition_rate))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
