@@ -2,7 +2,7 @@
 title: "hw 1"
 author: "korede"
 date: "9/16/2021"
-output: github_document
+output: html_document
 ---
 
 
@@ -26,6 +26,7 @@ include link to github in html doc
 do str(data)
 imake a plot 
 
+github repo link: https://github.com/Uloederok/repo 
 
 library(rvest)
 library(tidyverse)
