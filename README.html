@@ -372,6 +372,7 @@ summary {
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
 <p>include link to github in html doc do str(data) imake a plot</p>
+<p>github repo link: <a href="https://github.com/Uloederok/repo" class="uri">https://github.com/Uloederok/repo</a></p>
 <p>library(rvest) library(tidyverse)</p>
 <p>##Import NBI DATA to excel-<a href="https://www.fhwa.dot.gov/bridge/nbi/importing.pdf" class="uri">https://www.fhwa.dot.gov/bridge/nbi/importing.pdf</a>; then save as csv bridge = read_csv(“hawaii bridge.csv”) h_bridge = select(bridge, c(‘YEAR_BUILT_027’,‘DECK_COND_058’,‘STATE_CODE_001’,‘STRUCTURE_NUMBER_008’,‘DIRECTION_005E’))</p>
 <p>h_bridge = h_bridge %&gt;% rename(year = YEAR_BUILT_027, condition_rate = DECK_COND_058, fipscode = STATE_CODE_001, bridge_id = STRUCTURE_NUMBER_008, direction = DIRECTION_005E )</p>
