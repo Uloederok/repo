@@ -1,0 +1,90 @@
+---
+title: "hw 3"
+author: "korede"
+date: "9/30/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(nycflights13)
+library(ggplot2)
+library(tidyverse)
+```
+
+https://github.com/Uloederok/repo 
+
+Time of day has an effect on flight delays, so choosing the right time to fly is very important.
+In 2013, when flying out of New york, to avoid delays as much as possible it is recommended you pick a time early in the morning between 4:30 am and 6 am since it is at those times arrival delays are avoided the mosts. 
+
+Delays are however affected by multiple factors, such as airline, month, and airport. Below I will present summaries and figures that better explain this.
+
+
+
+Q) What time of day should you fly if you want to avoid delays as much as possible?
+
+A) it is recommended you pick a time early in the morning between 4:30 am and 6 am 
+```{r echo=TRUE}
+(time_2fly <- flights %>% group_by(dep_time) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(delay))
+```
+
+
+Q) Does this choice depend on airline?
+
+A) Yes, with the airline that uses the carrier code "VX" as an airline that avoids delays better than others
+```{r echo=TRUE}
+
+fly <- flights %>%   group_by(month,dep_time, origin, dest, carrier) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(delay)
+
+
+flights %>%   group_by(month,dep_time, origin, dest, carrier) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(delay, carrier)
+
+
+ggplot(fly, mapping = aes(month, delay)) + geom_boxplot(aes(colour = carrier)) + facet_wrap(origin~.)
+
+
+```
+
+
+
+Does this choice depend on airport? 
+
+If you want to avoid delays as much as possible, it is best to not fly into JFK airport out of the 3 New york airports in question, since the JFK airport has the highest number of arrival delays
+```{r echo=TRUE}
+
+fly <- flights %>%   group_by(month,dep_time, origin, dest, carrier) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(delay)
+
+
+flights %>%   group_by(month,dep_time, origin, dest, carrier) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(desc(delay, origin))
+
+
+ggplot(fly, mapping = aes(month, delay)) + geom_boxplot() + facet_wrap(origin~.)
+
+```
+
+
+
+Does this choice depend on the month? 
+
+If you want to avoid delays as much as possible, it is best to fly during the May
+```{r echo=TRUE}
+
+fly <- flights %>%   group_by(month,dep_time, origin, dest, carrier) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(delay)
+
+
+flights %>%   group_by(month,dep_time, origin, dest, carrier) %>% 
+  summarize(delay = mean(arr_delay, na.rm = T)) %>% arrange(delay, month)
+
+
+ggplot(fly, mapping = aes(month, delay)) + geom_boxplot() + facet_wrap(month~.)
+```
+
+
